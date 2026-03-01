@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -157,3 +160,115 @@ INTERNAL_IPS = ["127.0.0.1"]
 
 # CACHE SETTINGS
 CACHE_TTL = 60 * 15  # For 15 Minutes
+
+# UNFOLD ADMIN SETTINGS
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+
+UNFOLD = {
+    "SITE_TITLE": "NewsHub Admin",
+    "SITE_HEADER": "NewsHub",
+    "SITE_SUBHEADER": "Content Management System",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "public",
+            "title": "Visit Site",
+            "link": "/",
+        },
+    ],
+    "SITE_URL": "/",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "THEME": "light",
+    "COLORS": {
+        "primary": {
+            "50": "238 242 255",
+            "100": "224 231 255",
+            "200": "199 210 254",
+            "300": "165 180 252",
+            "400": "129 140 248",
+            "500": "99 102 241",
+            "600": "79 70 229",
+            "700": "67 56 202",
+            "800": "55 48 163",
+            "900": "49 46 129",
+            "950": "30 27 75",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": "Dashboard",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Home",
+                        "icon": "dashboard",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+            {
+                "title": "Content",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "News Articles",
+                        "icon": "newspaper",
+                        "link": reverse_lazy("admin:news_news_changelist"),
+                    },
+                    {
+                        "title": "Page Views",
+                        "icon": "visibility",
+                        "link": reverse_lazy("admin:news_page_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Users & Tasks",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Authors",
+                        "icon": "people",
+                        "link": reverse_lazy("admin:authentication_author_changelist"),
+                    },
+                    {
+                        "title": "Tasks",
+                        "icon": "task_alt",
+                        "link": reverse_lazy("admin:tasks_task_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Media",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Videos",
+                        "icon": "videocam",
+                        "link": reverse_lazy("admin:video_conversion_video_changelist"),
+                    },
+                    {
+                        "title": "Audio Files",
+                        "icon": "audiotrack",
+                        "link": reverse_lazy("admin:video_conversion_audio_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Security",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Groups",
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
+}
