@@ -1,5 +1,59 @@
-*.sqlite3
-**/__pycache__/*
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-uploads/*
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Django
+*.sqlite3
+*.sqlite3-journal
+staticfiles/
+uploads/
+*.log
+media/
+
+# Redis
 *.rdb
+
+# Environment variables
+.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Coverage / Testing
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
