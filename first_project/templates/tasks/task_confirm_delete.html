@@ -1,0 +1,6 @@
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure that you want to delete the task: "{{object.task}}" ?</p>
+  {{form}}
+  <input type="submit" value="Delete" />
+</form>

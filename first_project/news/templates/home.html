@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% if request.user.is_authenticated %}
+    <h1>Hi {{request.user.username}}, View {{len}} News:</h1>
+    {% else %}
+    <h1>View {{len}} News:</h1>
+    {% endif %}
+    <p>Page view counter: {{request.page_views}}</p>
+
+    <form method="POST" action={% url "logout" %}>
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+    {% for news in news %}
+    <a href={% url "detail_news" news.id %}>
+      <h2>{{news.title}}</h2>
+    </a>
+   
+    {% endfor %}
+  </body>
+</html>

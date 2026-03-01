@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{news.title}}</title>
+  </head>
+  <body>
+    <img src="{{news.banner.url}}" alt="{{news.title}}" />
+    <h1>{{news.title}}</h1>
+    <p>Created time: {{news.created_time}}</p>
+    <p>Updated time: {{news.updated_time}}</p>
+    <p>{{news.content}}</p>
+
+    {% if news.author %}
+    <h3>About the author</h3>
+    {% if news.author.image %}
+    <img src="{{news.author.image.url}}" alt="{{news.author.name}}" />
+    {% endif %}
+    <p>Name: {{news.author.username}}</p>
+    <p>Subtitle: {{news.author.subtitle |default_if_none:"No subtitle" }}</p>
+    <p>Bio: {{news.author.bio|default_if_none:"No Bio" }}</p>
+    {% endif %}
+
+    {% if request.user == news.author %}
+    <a href={% url "delete_news" news.pk %}>Delete</a>
+    <a href={% url "news_update" news.pk %}>Update</a>
+    {% endif %}
+  </body>
+</html>

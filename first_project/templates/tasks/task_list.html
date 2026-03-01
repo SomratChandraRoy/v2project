@@ -1,0 +1,15 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks</title>
+  </head>
+  <body>
+    <h1>Tasks</h1>
+    <ol>
+      {% for task in object_list %}
+      <li><a href={% url "task_detail" pk=task.pk %}>{{task.task}}</a></li>
+      {% endfor %}
+    </ol>
+  </body>
+</html>
