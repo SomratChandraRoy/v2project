@@ -24,11 +24,15 @@ COPY first_project/ .
 # Create uploads directory
 RUN mkdir -p /app/uploads
 
-# Collect static files
-RUN python manage.py collectstatic --no-input
+# Collect static files (use a build-time secret key)
+RUN SECRET_KEY=build-only-key python manage.py collectstatic --no-input
+
+# Copy entrypoint script
+COPY first_project/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Expose port
 EXPOSE 8000
 
-# Start gunicorn
-CMD ["gunicorn", "first_project.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2"]
+# Use entrypoint for migrations + gunicorn
+ENTRYPOINT ["/app/entrypoint.sh"]

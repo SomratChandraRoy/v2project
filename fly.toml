@@ -12,4 +12,4 @@ primary_region = "sin"
 
 [env]
   DEBUG = "False"
-  ALLOWED_HOSTS = ".fly.dev"
+  ALLOWED_HOSTS = ".fly.dev,v2project-sscldg.fly.dev"
