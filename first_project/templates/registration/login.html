@@ -1,24 +1,55 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login to our portal</title>
-  </head>
-  <body>
+{% extends "base.html" %}
 
-    <form method="POST" action={% url "login" %}>
-        {% csrf_token %}
-        <p>Errors:</p>
-        {{form.errors}}
-        {{ form.username.label_tag }}
-        {{form.username}}
+{% block title %}Login - NewsHub{% endblock %}
 
-        {{ form.password.label_tag }}
-        {{form.password}}
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card card">
+        <div class="card-body">
+            <div class="text-center">
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Sign in to your account to continue</p>
+            </div>
 
-        <input type="submit" value="login">
-        <input type="hidden" name="next" value={{next}}>
-    </form>
-    <a href={% url "password_reset" %}>Forgot password?</a>
-  </body>
-</html>
+            {% if form.errors %}
+            <div class="alert alert-error">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <div>
+                    {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                    {% empty %}
+                    <p>Invalid username or password. Please try again.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{% url 'login' %}" class="styled-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    {{ form.password }}
+                </div>
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+            </form>
+
+            <div style="text-align:center; margin-top:16px;">
+                <a href="{% url 'password_reset' %}" class="text-small">Forgot your password?</a>
+            </div>
+
+            <div class="auth-footer">
+                Don't have an account? <a href="{% url 'signup' %}"><strong>Sign up</strong></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

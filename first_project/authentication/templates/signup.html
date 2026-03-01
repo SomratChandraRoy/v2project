@@ -1,13 +1,79 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <form method="POST" action="" enctype="multipart/form-data">
-      {% csrf_token %}{{form.errors}}{{form.as_p}}
-      <button type="submit">Signup</button>
-    </form>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Sign Up - NewsHub{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card card" style="max-width:540px;">
+        <div class="card-body">
+            <div class="text-center">
+                <h1>Create Account</h1>
+                <p class="subtitle">Join NewsHub and start writing articles</p>
+            </div>
+
+            {% if form.errors %}
+            <div class="alert alert-error">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                Please fix the errors below.
+            </div>
+            {% endif %}
+
+            <form method="POST" action="" enctype="multipart/form-data" class="styled-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_image">Profile Picture</label>
+                    {{ form.image }}
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="form-group">
+                        <label for="id_username">Username</label>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_subtitle">Subtitle / Tagline</label>
+                    {{ form.subtitle }}
+                    {{ form.subtitle.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_bio">Bio</label>
+                    {{ form.bio }}
+                    {{ form.bio.errors }}
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="form-group">
+                        <label for="id_password1">Password</label>
+                        {{ form.password1 }}
+                        {{ form.password1.errors }}
+                        {% if form.password1.help_text %}
+                        <span class="helptext">{{ form.password1.help_text }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password2">Confirm Password</label>
+                        {{ form.password2 }}
+                        {{ form.password2.errors }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg mt-1">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="{% url 'login' %}"><strong>Sign in</strong></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

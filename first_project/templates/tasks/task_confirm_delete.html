@@ -1,6 +1,29 @@
-<form method="POST">
-  {% csrf_token %}
-  <p>Are you sure that you want to delete the task: "{{object.task}}" ?</p>
-  {{form}}
-  <input type="submit" value="Delete" />
-</form>
+{% extends "base.html" %}
+
+{% block title %}Delete Task - NewsHub{% endblock %}
+
+{% block content %}
+<div style="max-width:500px; margin:0 auto;">
+    <div class="card">
+        <div class="card-body text-center" style="padding:40px 32px;">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.5" style="margin-bottom:16px;">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <h2 style="color:var(--dark); margin-bottom:8px;">Delete Task</h2>
+            <p style="color:var(--gray-500); margin-bottom:24px;">Are you sure you want to delete the task:<br><strong style="color:var(--dark);">"{{ object.task }}"</strong></p>
+            <p class="text-small text-muted" style="margin-bottom:24px;">This action cannot be undone.</p>
+
+            <form method="POST" style="display:flex; gap:10px; justify-content:center;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                    Yes, Delete
+                </button>
+                <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -11,11 +11,12 @@ from .serializers import AuthorSignupSerializer
 
 # Create your views here.
 def signup(request):
-    if request.POST:
+    if request.method == "POST":
         form = AuthorSignupForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect("login")
+            user = form.save()
+            login(request, user)
+            return redirect("home")
         else:
             return render(request, "signup.html", {"form": form})
     else:
