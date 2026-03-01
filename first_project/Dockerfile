@@ -15,11 +15,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY first_project/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
-COPY . .
+COPY first_project/ .
 
 # Collect static files
 RUN python manage.py collectstatic --no-input
