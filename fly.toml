@@ -2,7 +2,6 @@ app = "v2project-sscldg"
 primary_region = "sin"
 
 [build]
-  dockerfile = "first_project/Dockerfile"
 
 [http_service]
   internal_port = 8000

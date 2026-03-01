@@ -18,8 +18,11 @@ RUN apt-get update && \
 COPY first_project/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files
+# Copy project
 COPY first_project/ .
+
+# Create uploads directory
+RUN mkdir -p /app/uploads
 
 # Collect static files
 RUN python manage.py collectstatic --no-input
