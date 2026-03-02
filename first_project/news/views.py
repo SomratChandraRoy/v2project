@@ -27,20 +27,23 @@ def news_api(request):
     all_news = News.objects.all()
     response = {"news": []}
     for news in all_news:
+        author_data = None
+        if news.author:
+            author_data = {
+                "name": news.author.username,
+                "id": news.author.id,
+                "bio": news.author.bio,
+                "image": news.author.image.url if news.author.image else None,
+                "subtitle": news.author.subtitle,
+            }
         response["news"].append(
             {
                 "title": news.title,
-                "banner": news.banner.url,
+                "banner": news.banner.url if news.banner else None,
                 "content": news.content,
                 "created_time": news.created_time,
                 "updated_time": news.updated_time,
-                "author": {
-                    "name": news.author.username,
-                    "id": news.author.id,
-                    "bio": news.author.bio,
-                    "image": news.author.image.url,
-                    "subtitle": news.author.subtitle,
-                },
+                "author": author_data,
             }
         )
     return JsonResponse(response)

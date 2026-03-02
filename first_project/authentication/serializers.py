@@ -24,7 +24,7 @@ class AuthorSignupSerializer(serializers.ModelSerializer):
         password2 = data.get("password2")
 
         if password1 != password2:
-            serializers.ValidationError({"password2": "Passwords are not the same."})
+            raise serializers.ValidationError({"password2": "Passwords are not the same."})
         validate_password(password=password1)
 
         return data
